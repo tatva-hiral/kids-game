@@ -1,7 +1,7 @@
 {
-  "name": "scratch-gui",
+  "name": "kids-game",
   "version": "0.1.0",
-  "description": "GraphicaL User Interface for creating and running Scratch 3.0 projects",
+  "description": "It is for kids game",
   "main": "./dist/scratch-gui.js",
   "scripts": {
     "build": "npm run clean && webpack --progress --colors --bail",
@@ -17,13 +17,6 @@
     "test:unit": "jest test[\\\\/]unit",
     "test:smoke": "jest --runInBand test[\\\\/]smoke",
     "watch": "webpack --progress --colors --watch"
-  },
-  "author": "Massachusetts Institute of Technology",
-  "license": "BSD-3-Clause",
-  "homepage": "https://github.com/LLK/scratch-gui#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/LLK/scratch-gui.git"
   },
   "peerDependencies": {
     "react": "^16.0.0",
@@ -88,9 +81,9 @@
     "query-string": "^5.1.1",
     "raf": "^3.4.0",
     "raw-loader": "^0.5.1",
-    "react": "16.2.0",
+    "react": "^16.5.2",
     "react-contextmenu": "2.9.4",
-    "react-dom": "16.2.0",
+    "react-dom": "^16.5.2",
     "react-draggable": "3.0.5",
     "react-ga": "2.5.3",
     "react-intl": "2.9.0",

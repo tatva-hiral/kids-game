@@ -23,15 +23,15 @@ class ErrorBoundary extends React.Component {
         };
 
         // Log errors to analytics, leaving out browsers that are not in our recommended set
-        if (recommendedBrowser() && window.Sentry) {
-            window.Sentry.withScope(scope => {
-                Object.keys(info).forEach(key => {
-                    scope.setExtra(key, info[key]);
-                });
-                scope.setExtra('action', this.props.action);
-                window.Sentry.captureException(error);
-            });
-        }
+        // if (recommendedBrowser() && window.Sentry) {
+        //     window.Sentry.withScope(scope => {
+        //         Object.keys(info).forEach(key => {
+        //             scope.setExtra(key, info[key]);
+        //         });
+        //         scope.setExtra('action', this.props.action);
+        //         window.Sentry.captureException(error);
+        //     });
+        // }
 
         // Display fallback UI
         this.setState({
