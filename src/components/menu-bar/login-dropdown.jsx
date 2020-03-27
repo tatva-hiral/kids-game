@@ -6,10 +6,12 @@ eventually be consolidated.
 
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
-import {defineMessages} from 'react-intl';
+import React, { useState } from 'react';
+import { defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
 
 import MenuBarMenu from './menu-bar-menu.jsx';
+// import {handleLogIn} from '../../reducers/login';
 
 import styles from './login-dropdown.css';
 
@@ -43,34 +45,57 @@ const LoginDropdownMessages = defineMessages({ // eslint-disable-line no-unused-
     }
 });
 
+let newValues = {};
+const LoginDropdown = (props) => {
+    const [fields, setFields] = useState({ username: '', password: '' });
+    const handleChange = (e) => {
+        e.preventDefault();
+        newValues = { ...fields, [e.target.name]: e.target.value };
+        setFields(newValues);
+    }
 
-const LoginDropdown = ({
-    className,
-    isOpen,
-    isRtl,
-    onClose,
-    renderLogin
-}) => (
-    <MenuBarMenu
-        className={className}
-        open={isOpen}
-        // note: the Rtl styles are switched here, because this menu is justified
-        // opposite all the others
-        place={isRtl ? 'right' : 'left'}
-        onRequestClose={onClose}
-    >
-        <div
-            className={classNames(
-                styles.login
-            )}
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = {
+            username: fields.username,
+            password: fields.password,
+            useMessages: true
+        }
+        props.onLogInSubmit(formData);
+        console.log('fields', fields);
+    }
+
+    return (
+        <MenuBarMenu
+            className={props.className}
+            open={props.isOpen}
+            // note: the Rtl styles are switched here, because this menu is justified
+            // opposite all the others
+            place={props.isRtl ? 'right' : 'left'}
+            onRequestClose={props.onClose}
         >
-            {renderLogin({
-                onClose: onClose
-            })}
-        </div>
-    </MenuBarMenu>
-);
+            <div
+                className={classNames(
+                    styles.login
+                )}
+            >
+                <div>Form</div>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Username:       </label>
+                        <input type="text" name="username" value={fields.username} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label>Password:        </label>
+                        <input type="text" name="password" value={fields.password} onChange={handleChange} />
+                    </div>
 
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </MenuBarMenu>
+    );
+}
 LoginDropdown.propTypes = {
     className: PropTypes.string,
     isOpen: PropTypes.bool,
@@ -79,4 +104,15 @@ LoginDropdown.propTypes = {
     renderLogin: PropTypes.func
 };
 
-export default LoginDropdown;
+// const mapStateToProps = (state, ownProps) => {
+//     return {
+        
+//     };
+// };
+
+// const mapDispatchToProps = dispatch => ({
+//     // onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
+//     onLogIn: () => dispatch(handleLogIn()),
+// });
+
+export default (LoginDropdown);
